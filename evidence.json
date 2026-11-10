@@ -1,0 +1,207 @@
+{
+  "network": "Stable Studionet",
+  "chainId": 61999,
+  "rpcUrl": "https://studio.genlayer.com/api",
+  "contractAddress": "0xD084BF64ccdf9bB347d0F6ffB20641A2095b25a0",
+  "deployTxHash": "0x75436b245294423f1999909f41ba8075aa6f5def7ef6090a2496db9c3a72b1b3",
+  "contractFile": "contracts/sort_cert.py",
+  "contractSha256": "ff425edcb95aafb012c4a335f3711fa23c6740114bbb2c6ad0d68143df0efb21",
+  "deployedCodeSha256": "ff425edcb95aafb012c4a335f3711fa23c6740114bbb2c6ad0d68143df0efb21",
+  "deployedCodeMatchesSource": true,
+  "accounts": {
+    "creator": "0xF3813DE6ac750f349b47f73726870aFe0daf1f05"
+  },
+  "funding": {
+    "creator": {
+      "address": "0xF3813DE6ac750f349b47f73726870aFe0daf1f05",
+      "funded_gen": 100,
+      "fundTx": "0x507a2daf8ae7d28c8baa0d2777f1b48ad07040f7a85ad7598f850750b72a9be0",
+      "balance_after_wei": "100000000000000000000"
+    }
+  },
+  "cases": [
+    {
+      "id": "sorted-list",
+      "values": [
+        1,
+        2,
+        2,
+        5
+      ],
+      "claimed_pair_results": [
+        true,
+        true,
+        true
+      ],
+      "claimed_verdict": "SORTED",
+      "expected_verdict": "SORTED",
+      "expected_pair_results": [
+        true,
+        true,
+        true
+      ],
+      "expected_witness": null,
+      "createTxHash": "0x9bb523037f2fcfd446e0312b2d57b2d6be5bbf366455a2c49d367e5fa9eb72bd"
+    },
+    {
+      "id": "bad-claim-list",
+      "values": [
+        1,
+        2,
+        2,
+        5
+      ],
+      "claimed_pair_results": [
+        true,
+        true,
+        false
+      ],
+      "claimed_verdict": "SORTED",
+      "expected_verdict": null,
+      "expected_pair_results": null,
+      "expected_witness": null,
+      "expected_error": "PAIR_MISMATCH",
+      "expected_no_record": true,
+      "createTxHash": "0xa4a58c14223ce42247c44395bcd2a9c66ba288f982a45533fd5c41528bc3e7fc"
+    },
+    {
+      "id": "unsorted-list",
+      "values": [
+        3,
+        1,
+        2
+      ],
+      "claimed_pair_results": [
+        false,
+        true
+      ],
+      "claimed_verdict": "UNSORTED",
+      "expected_verdict": "UNSORTED",
+      "expected_pair_results": [
+        false,
+        true
+      ],
+      "expected_witness": {
+        "pair_index": 0,
+        "i": 0,
+        "left": 3,
+        "right": 1
+      },
+      "createTxHash": "0xab56caaee6aa046f5afc378bb17d34a128b46f334629fe2960bfb99e06a3000a"
+    }
+  ],
+  "transactions": [
+    {
+      "label": "create-sorted-list",
+      "method": "create_case",
+      "args": [
+        "sorted-list",
+        "[1,2,2,5]",
+        "[true,true,true]",
+        "SORTED"
+      ],
+      "sender": "0xF3813DE6ac750f349b47f73726870aFe0daf1f05",
+      "txHash": "0x9bb523037f2fcfd446e0312b2d57b2d6be5bbf366455a2c49d367e5fa9eb72bd",
+      "receiptStatus": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "SUCCESS",
+      "expected_error": null,
+      "stderr_excerpt": "{\"first_inversion_pair_index\":-1,\"id\":\"sorted-list\",\"pair_results\":[true,true,true],\"state\":\"DECIDED\",\"verdict\":\"SORTED\",\"witness\":null}"
+    },
+    {
+      "label": "bad-claim-list",
+      "method": "create_case",
+      "args": [
+        "bad-claim-list",
+        "[1,2,2,5]",
+        "[true,true,false]",
+        "SORTED"
+      ],
+      "sender": "0xF3813DE6ac750f349b47f73726870aFe0daf1f05",
+      "txHash": "0xa4a58c14223ce42247c44395bcd2a9c66ba288f982a45533fd5c41528bc3e7fc",
+      "receiptStatus": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "ERROR",
+      "expected_error": "PAIR_MISMATCH",
+      "stderr_excerpt": "EXPECTED: PAIR_MISMATCH"
+    },
+    {
+      "label": "create-unsorted-list",
+      "method": "create_case",
+      "args": [
+        "unsorted-list",
+        "[3,1,2]",
+        "[false,true]",
+        "UNSORTED"
+      ],
+      "sender": "0xF3813DE6ac750f349b47f73726870aFe0daf1f05",
+      "txHash": "0xab56caaee6aa046f5afc378bb17d34a128b46f334629fe2960bfb99e06a3000a",
+      "receiptStatus": "FINALIZED",
+      "consensus": "MAJORITY_AGREE",
+      "execution": "SUCCESS",
+      "expected_error": null,
+      "stderr_excerpt": "{\"first_inversion_pair_index\":0,\"id\":\"unsorted-list\",\"pair_results\":[false,true],\"state\":\"DECIDED\",\"verdict\":\"UNSORTED\",\"witness\":{\"i\":0,\"left\":3,\"pair_index\":0,\"right\":1}}"
+    }
+  ],
+  "finalReadbacks": {
+    "cases": [
+      {
+        "claimed_pair_results": [
+          true,
+          true,
+          true
+        ],
+        "claimed_verdict": "SORTED",
+        "first_inversion_pair_index": -1,
+        "id": "sorted-list",
+        "pair_results": [
+          true,
+          true,
+          true
+        ],
+        "state": "DECIDED",
+        "values": [
+          1,
+          2,
+          2,
+          5
+        ],
+        "verdict": "SORTED",
+        "witness": null
+      },
+      {
+        "claimed_pair_results": [
+          false,
+          true
+        ],
+        "claimed_verdict": "UNSORTED",
+        "first_inversion_pair_index": 0,
+        "id": "unsorted-list",
+        "pair_results": [
+          false,
+          true
+        ],
+        "state": "DECIDED",
+        "values": [
+          3,
+          1,
+          2
+        ],
+        "verdict": "UNSORTED",
+        "witness": {
+          "i": 0,
+          "left": 3,
+          "pair_index": 0,
+          "right": 1
+        }
+      }
+    ],
+    "stats": {
+      "sorted_cases": 1,
+      "total_cases": 2,
+      "unsorted_cases": 1
+    },
+    "readBackAt": "2026-11-10T17:43:54.091Z"
+  },
+  "generatedAt": "2026-11-10T17:43:54.091Z"
+}
